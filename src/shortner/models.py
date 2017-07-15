@@ -1,6 +1,10 @@
 from django.db import models
 from .utils import create_shortcode
 
+from django.conf import settings
+
+SHORTCODE_MAX = getattr(settings, 'SHORTCODE_MAX', 15)
+
 class ShortnerManager(models.Manager):
     def all(self, *args, **kwargs):
         qs_main = super(ShortnerManager, self).all(*args, **kwargs)
@@ -20,7 +24,7 @@ class ShortnerManager(models.Manager):
 
 class ShortnerURL(models.Model):
     url         = models.CharField(max_length=220, )
-    shortcode   = models.CharField(max_length=15, unique=True, blank=True)
+    shortcode   = models.CharField(max_length=SHORTCODE_MAX, unique=True, blank=True)
     created     = models.DateTimeField(auto_now_add=True)
     updated     = models.DateTimeField(auto_now=True)
     active      = models.BooleanField(default=True)
