@@ -20,5 +20,5 @@ from shortner.views import shortner_url_view, ShortnerCBView
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^a/(?P<shortcode>[\w-]+)', shortner_url_view),
-    url(r'^b/(?P<shortcode>[\w-]+)', ShortnerCBView.as_view()),
+    url(r'^b/(?P<shortcode>[\w-]+)', ShortnerCBView.as_view(), name='waaat'),
 ]
