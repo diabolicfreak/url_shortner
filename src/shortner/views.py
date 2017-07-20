@@ -9,7 +9,7 @@ class HomeView(View):
     def get(self, request, *args, **kwargs):
         form = SubmitUrlForm()
         context = {
-            'title': 'Submit url title',
+            'title': 'URL Shortner',
             'form': form
         }
         return render(request, 'shortner/home.html', context)

@@ -1,5 +1,9 @@
-<p>Successfully created</p>
-<p><a href="{{obj.get_short_url}}">{{obj.get_short_url}}</a></p>
-<p>{{obj.shortcode}}</p>
-<p>{{obj.clickevent.count}}</p>
+{% extends "base.html" %}
+
+{% block content %}
+    <p>Successfully created</p>
+    <p><a href="{{obj.get_short_url}}">{{obj.get_short_url}}</a></p>
+    <p>{{obj.shortcode}}</p>
+    <p>{{obj.clickevent.count}}</p>
 <a href="/">Create</a>
+{% endblock content %}
