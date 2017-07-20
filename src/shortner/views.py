@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from django.views import View
 from .models import ShortnerURL
-
 from .forms import SubmitUrlForm
+from analytics.models import ClickEvent
 
 class HomeView(View):
     def get(self, request, *args, **kwargs):
@@ -38,7 +38,12 @@ class HomeView(View):
         return render(request, template, context)
 
 
-class ShortnerCBView(View):
+class URLRedirectView(View):
     def get(self, request, shortcode=None, *args, **kwargs):
         obj = get_object_or_404(ShortnerURL, shortcode=shortcode)
-        return HttpResponse('Redirect url is {}'.format(obj.url))
+        ClickEvent.objects.create_event(obj)
+        print(obj.url)
+        if not "http://" in obj.url:
+            obj.url = "http://" + obj.url
+        # return HttpResponse('Redirect url is {}'.format(obj.url))
+        return HttpResponseRedirect(obj.url)

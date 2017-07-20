@@ -1,6 +1,7 @@
 from django.db import models
 from .utils import create_shortcode
 
+from django_hosts.resolvers import reverse
 from django.conf import settings
 from .validators import validate_url, validate_dot_com
 
@@ -42,3 +43,7 @@ class ShortnerURL(models.Model):
         if self.shortcode is None or self.shortcode == '':
             self.shortcode=create_shortcode(self)
         super(ShortnerURL, self).save(*args, **kwargs)
+
+    def get_short_url(self):
+        homepage_url = reverse('shortcode', host='www', kwargs={'shortcode': self.shortcode})
+        return "{shortcode}".format(shortcode=homepage_url)

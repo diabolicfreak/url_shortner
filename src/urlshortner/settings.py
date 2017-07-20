@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     # custom apps
     'shortner',
+    'analytics',
 ]
 
 MIDDLEWARE = [
@@ -61,6 +62,8 @@ ROOT_URLCONF = 'urlshortner.urls'
 ROOT_HOSTCONF = 'urlshortner.hosts'
 DEFAULT_HOST = 'www'
 DEFAULT_REDIRECT_URL = 'http://www.aasda.asd'
+PARENT_HOST = 'localhost:8000'
+HOST_SCHEME = 'http://'
 
 TEMPLATES = [
     {
