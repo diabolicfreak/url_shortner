@@ -17,14 +17,25 @@ class HomeView(View):
     def post(self, request, *args, **kwargs):
         # print(request.POST.get('url'))
         form = SubmitUrlForm(request.POST)
-        if form.is_valid():
-            print(form.cleaned_data)
-
+        template = 'shortner/home.html'
         context = {
             'title': 'Submit url title',
             'form': form
         }
-        return render(request, 'shortner/home.html', context)
+        if form.is_valid():
+            print(form.cleaned_data)
+            url = form.cleaned_data.get('url')
+            obj, created = ShortnerURL.objects.get_or_create(url=url)
+            context = {
+                'title': 'Shortcode',
+                'obj': obj
+            }
+            if created:
+                template = 'shortner/success.html'
+            if not created:
+                template = 'shortner/already-exists.html'
+
+        return render(request, template, context)
 
 
 class ShortnerCBView(View):
