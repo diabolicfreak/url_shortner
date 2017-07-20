@@ -40,6 +40,8 @@ class ShortnerURL(models.Model):
         return str(self.url)
 
     def save(self, *args, **kwargs):
+        if not "http" in self.url:
+            self.url = "http://"+self.url
         if self.shortcode is None or self.shortcode == '':
             self.shortcode=create_shortcode(self)
         super(ShortnerURL, self).save(*args, **kwargs)
