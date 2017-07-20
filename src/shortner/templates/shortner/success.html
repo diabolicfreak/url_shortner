@@ -1,9 +1,13 @@
 {% extends "base.html" %}
 
+{% block title %}
+    {{obj.get_short_url}}
+{% endblock title %}
+
 {% block content %}
-    <p>Successfully created</p>
-    <p><a href="{{obj.get_short_url}}">{{obj.get_short_url}}</a></p>
-    <p>{{obj.shortcode}}</p>
-    <p>{{obj.clickevent.count}}</p>
-<a href="/">Create</a>
+    <h2>Successfully created</h2>
+    <h4><a class="btn btn-primary" href="{{obj.get_short_url}}">{{obj.get_short_url}}</a></h4>
+    <h4>Visit count: <small>{{obj.clickevent.count}}</small></h4>
+    <h4>Shortcode: <small>{{obj.shortcode}}</small></h4>
+    <h4><a class="btn btn-default" href="/">SHORTEN</a></h4>
 {% endblock content %}
