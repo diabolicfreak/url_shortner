@@ -3,9 +3,29 @@ from django.http import HttpResponse, HttpRequest
 from django.views import View
 from .models import ShortnerURL
 
+from .forms import SubmitUrlForm
+
 class HomeView(View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'shortner/home.html', {})
+        form = SubmitUrlForm()
+        context = {
+            'title': 'Submit url title',
+            'form': form
+        }
+        return render(request, 'shortner/home.html', context)
+
+    def post(self, request, *args, **kwargs):
+        # print(request.POST.get('url'))
+        form = SubmitUrlForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+
+        context = {
+            'title': 'Submit url title',
+            'form': form
+        }
+        return render(request, 'shortner/home.html', context)
+
 
 class ShortnerCBView(View):
     def get(self, request, shortcode=None, *args, **kwargs):
